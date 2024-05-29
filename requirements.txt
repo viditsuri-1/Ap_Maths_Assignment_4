@@ -1,1 +1,1 @@
-tensoflow=2.10
+tensoflow==2.10
