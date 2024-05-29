@@ -9,7 +9,8 @@ def define_dense_model_single_layer(input_length, activation_f='sigmoid', output
     activation_f: the activation function
     output_length: the number of outputs (number of neurons)"""
     model = keras.Sequential()
-    model.add(layers.Dense(output_length, activation=activation_f, input_shape=(input_length,)))
+    model.add(keras.Input(shape=(input_length,)))
+    model.add(layers.Dense(output_length, activation=activation_f))
     return model
 
 def define_dense_model_with_hidden_layer(input_length, 
@@ -23,7 +24,8 @@ def define_dense_model_with_hidden_layer(input_length,
     output_length: the number of outputs (number of neurons in the output layer)"""
 
     model = keras.Sequential()
-    model.add(layers.Dense(hidden_layer_size, activation=activation_func_array[0], input_shape=(input_length,)))
+    model.add(keras.Input(shape=(input_length,)))
+    model.add(layers.Dense(hidden_layer_size, activation=activation_func_array[0]))
     model.add(layers.Dense(output_length, activation=activation_func_array[1]))
     return model
 
@@ -36,7 +38,7 @@ def get_mnist_data():
 
 def binarize_labels(labels, target_digit=2):
     """Binarize the labels."""
-    labels = 1*(labels==target_digit)
+    labels = 1 * (labels == target_digit)
     return labels
 
 def fit_mnist_model_single_digit(x_train, y_train, target_digit, model, epochs=10, batch_size=128):
